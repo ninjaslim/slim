@@ -11,6 +11,7 @@
     <script src="js/vendor/bootstrap.min.js"></script>
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     <script src="js/app.js"></script>
+    <script type="text/javascript" src="js/services/sprintTaskService.js" ></script>
     
     
 </head>
@@ -28,7 +29,21 @@
                         <div class="panel-heading">
                             <h3 class="panel-title">{{listName}}</h3>
                         </div>
-                        <div class="panel-body" ng-include="'Simple.html'"></div>
+                       
+                        <ul dnd-list="list">
+                        
+                            <li ng-repeat="item in list"
+                                dnd-draggable="item"
+                                dnd-moved="list.splice($index, 1)"
+                                dnd-effect-allowed="move"
+                                dnd-selected="models.selected = item"
+                                ng-class="getClass(listName)">
+                                <span class="task">Task</span> : {{item.label}}<br /><span class="task">JIRA</span> : {{item.Jira}}<br /> <span class="task">Assigned To</span> :{{item.AssignedTo}}<br /> <span class="task"> Epic </span> :{{item.Epic}}<br /> <span class="task"> Estimation </span>:{{item.Estimation}}
+
+</li>
+                        </ul>
+
+
                     </div>
                 </div>
             </div>

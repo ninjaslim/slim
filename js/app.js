@@ -1,75 +1,90 @@
-angular.module('slim', ['dndLists']).controller('slimController', function ($scope) {
+angular.module('slim', ['dndLists']).controller('slimController', function ($scope,sprintTaskService) {
 
-    $scope.models = {
-        selected: null,
-        lists: {
-            "To Do": [{
-                "label": "Update Html",
-                "Jira": "Slim-101",
-                "AssignedTo": "Divyal",
-                "Epic": "My Angular POC",
-                "Estimation": "2"
-            }, {
-                "label": "Create dummy Json",
-                "Jira": "Slim-102",
-                "AssignedTo": "Zhao",
-                "Epic": "My Angular POC",
-                "Estimation": "3"
-            }, {
-                "label": "Create angular service",
-                "Jira": "Slim-103",
-                "AssignedTo": "Mithun",
-                "Epic": "My Angular POC",
-                "Estimation": "5"
-            }],
+    //$scope.models = {
+    //    selected: null,
+    //    lists: {
+    //        "To Do": [{
+    //            "label": "Update Html",
+    //            "Jira": "Slim-101",
+    //            "AssignedTo": "Divyal",
+    //            "Epic": "My Angular POC",
+    //            "Estimation": "2"
+              
+    //        }, {
+    //            "label": "Create dummy Json",
+    //            "Jira": "Slim-102",
+    //            "AssignedTo": "Zhao",
+    //            "Epic": "My Angular POC",
+    //            "Estimation": "3"
+    //        }, {
+    //            "label": "Create angular service",
+    //            "Jira": "Slim-103",
+    //            "AssignedTo": "Mithun",
+    //            "Epic": "My Angular POC",
+    //            "Estimation": "5"
+    //        }],
 
-            "In Progress": [{
-                "label": "Create Controller",
-                "Jira": "Slim-104",
-                "AssignedTo": "Pravin",
-                "Epic": "My Angular POC",
-                "Estimation": "5"
-            },
-                {
-                    "label": "Create backend service",
-                    "Jira": "Slim-105",
-                    "AssignedTo": "Pravin",
-                    "Epic": "My Angular POC",
-                    "Estimation": "5"
-                },
-                {
-                    "label": "Create table in database",
-                    "Jira": "Slim-106",
-                    "AssignedTo": "Pravin",
-                    "Epic": "My Angular POC",
-                    "Estimation": "8"
-                }], "Done": [{
-                    "label": "Create project structure",
-                    "Jira": "Slim-107",
-                    "AssignedTo": "Pravin",
-                    "Epic": "My Angular POC",
-                    "Estimation": "3"
-                },
-              {
-                  "label": "Download dummy project structue",
-                  "Jira": "Slim-108",
-                  "AssignedTo": "Pravin",
-                  "Epic": "My Angular POC",
-                  "Estimation": "2"
-              },
-              {
-                  "label": "Item B2",
-                  "Jira": "Slim-109",
-                  "AssignedTo": "Pravin",
-                  "Epic": "My Angular POC",
-                  "Estimation": "2"
-              }]
-        }
-    };
+    //        "In Progress": [{
+    //            "label": "Create Controller",
+    //            "Jira": "Slim-104",
+    //            "AssignedTo": "Pravin",
+    //            "Epic": "My Angular POC",
+    //            "Estimation": "5"
+    //        },
+    //            {
+    //                "label": "Create backend service",
+    //                "Jira": "Slim-105",
+    //                "AssignedTo": "Pravin",
+    //                "Epic": "My Angular POC",
+    //                "Estimation": "5"
+    //            },
+    //            {
+    //                "label": "Create table in database",
+    //                "Jira": "Slim-106",
+    //                "AssignedTo": "Pravin",
+    //                "Epic": "My Angular POC",
+    //                "Estimation": "8"
+    //            }], "Done": [{
+    //                "label": "Create project structure",
+    //                "Jira": "Slim-107",
+    //                "AssignedTo": "Pravin",
+    //                "Epic": "My Angular POC",
+    //                "Estimation": "3"
+    //            },
+    //          {
+    //              "label": "Download dummy project structue",
+    //              "Jira": "Slim-108",
+    //              "AssignedTo": "Pravin",
+    //              "Epic": "My Angular POC",
+    //              "Estimation": "2"
+    //          },
+    //          {
+    //              "label": "Item B2",
+    //              "Jira": "Slim-109",
+    //              "AssignedTo": "Pravin",
+    //              "Epic": "My Angular POC",
+    //              "Estimation": "2"
+    //          }]
+    //    }
+    //};
 
     $scope.initController = function(){
-        alert('Inside Controller');
-        return "";
+        sprintTaskService.loadDummyData().then(function (response) {
+           // alert(response);
+            $scope.models = response.data;
+        });
+
+      
+    };
+
+    $scope.getClass=function(listName){
+        if (listName === 'To Do') {
+            return 'todo';
+        }else if(listName === 'In Progress'){
+            return 'inprogress';
+        }else {
+            return 'done';
+        }
     };
 
     // Generate initial model

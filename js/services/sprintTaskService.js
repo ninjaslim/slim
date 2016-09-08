@@ -1,10 +1,17 @@
-﻿(function(){
-    var module = angular.module('slim');
-    var injectParams = ['$scope'];
-    var sprintTaskService = function ($scope) {
+﻿
+
+angular.module('slim').service('sprintTaskService', function ($http) {
+
+    var sprintTaskService = {
+
+        loadDummyData : function () {
+            alert('inside the dummy');
+            return  $http.get("data/data.json");
+        }
 
     };
-    sprintTaskService.$inject = injectParams;
-    module.service('sprintTaskService',sprintTaskService);
-}());
+    
 
+  return sprintTaskService;
+
+});
