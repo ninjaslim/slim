@@ -1,4 +1,4 @@
-angular.module('slim', ['dndLists']).controller('slimController', function ($scope,sprintTaskService) {
+angular.module('slim', ['dndLists']).controller('slimController', function ($scope, sprintTaskService, geolocationService) {
 
     //$scope.models = {
     //    selected: null,
@@ -73,8 +73,7 @@ angular.module('slim', ['dndLists']).controller('slimController', function ($sco
            // alert(response);
             $scope.models = response.data;
         });
-
-      
+        
     };
 
     $scope.getClass=function(listName){
@@ -97,5 +96,7 @@ angular.module('slim', ['dndLists']).controller('slimController', function ($sco
     $scope.$watch('models', function (model) {
         $scope.modelAsJson = angular.toJson(model, true);
     }, true);
+
+    $scope.location  = geolocationService.getlocation();
 
 });
